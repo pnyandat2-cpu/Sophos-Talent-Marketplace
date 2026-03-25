@@ -23,7 +23,9 @@ import {
   Clipboard,
   Star,
   Building2,
-  Bell
+  Bell,
+  Sparkles,
+  Zap
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -116,6 +118,84 @@ export function Dashboard({ onNavigateToProfile, onNavigateToTab }: DashboardPro
                   {btn}
                 </button>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Recommendations Section */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-sap-blue/10 rounded-lg">
+                <Sparkles className="text-sap-blue" size={20} />
+              </div>
+              <h2 className="text-2xl font-bold text-sap-text">Recommended for You</h2>
+            </div>
+            <button 
+              onClick={() => onNavigateToTab('marketplace')}
+              className="text-sap-blue text-sm font-bold hover:underline"
+            >
+              Explore Marketplace
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div 
+              onClick={() => onNavigateToTab('marketplace')}
+              className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-4">
+                <div className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                  94% Match
+                </div>
+              </div>
+              <div className="flex items-start gap-4 mb-6">
+                <div className="p-3 bg-blue-50 rounded-2xl">
+                  <TrendingUp className="text-sap-blue" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-sap-text group-hover:text-sap-blue transition-colors">Senior Product Manager</h3>
+                  <p className="text-sm text-gray-500">Digital Banking • Nairobi</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 mb-6 line-clamp-2">
+                Based on your recent certification in Strategic Management and 5+ years in Fintech, this role is a perfect fit for your career progression.
+              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-bold text-sap-blue">
+                  View Details <ChevronRight size={14} />
+                </div>
+                <div className="flex items-center gap-1 text-amber-600 font-bold text-xs">
+                  <Zap size={12} fill="currentColor" />
+                  <span>Earn 500 pts on hire</span>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              onClick={() => onNavigateToTab('development')}
+              className="bg-gradient-to-br from-sap-blue to-sap-dark-blue p-6 rounded-3xl text-white shadow-lg hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <div className="flex items-start gap-4 mb-6">
+                <div className="p-3 bg-white/10 rounded-2xl">
+                  <Award className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold">Skill Gap Identified</h3>
+                  <p className="text-sm text-white/70">Advanced Data Analytics</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/80 mb-6">
+                Closing this gap will increase your fit for 3 open leadership roles in the Corporate Strategy department.
+              </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-bold">
+                  Start Learning <ChevronRight size={14} />
+                </div>
+                <div className="px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                  High Priority
+                </div>
+              </div>
             </div>
           </div>
         </section>

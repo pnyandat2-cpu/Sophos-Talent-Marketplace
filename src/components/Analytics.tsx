@@ -24,6 +24,7 @@ import {
   Clock,
   DollarSign
 } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 const headcountData = [
   { name: 'Jan', headcount: 420 },
@@ -75,21 +76,24 @@ export function Analytics() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'Total Headcount', value: '455', change: '+8.3%', icon: Users, color: 'text-blue-600' },
-          { label: 'New Hires (MTD)', value: '12', change: '+2', icon: UserPlus, color: 'text-green-600' },
-          { label: 'Turnover Rate', value: '4.2%', change: '-0.5%', icon: UserMinus, color: 'text-red-600' },
-          { label: 'Avg. Tenure', value: '3.5 yrs', change: '+0.2', icon: Clock, color: 'text-purple-600' },
+          { label: 'Internal Hiring Rate', value: '68%', change: '+12%', icon: UserPlus, color: 'text-green-600' },
+          { label: 'Turnover Reduction', value: '15%', change: '-4.2%', icon: UserMinus, color: 'text-red-600' },
+          { label: 'Avg. Time-to-Fill', value: '14 days', change: '-5 days', icon: Clock, color: 'text-purple-600' },
         ].map((kpi, i) => (
-          <div key={i} className="bg-white p-4 rounded-sm shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between mb-2">
-              <div className={`p-2 rounded-md bg-gray-50 ${kpi.color}`}>
-                <kpi.icon size={20} />
+          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`p-3 rounded-xl bg-gray-50 ${kpi.color}`}>
+                <kpi.icon size={24} />
               </div>
-              <span className={`text-xs font-bold ${kpi.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={cn(
+                "px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider",
+                kpi.change.startsWith('+') ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"
+              )}>
                 {kpi.change}
-              </span>
+              </div>
             </div>
-            <div className="text-2xl font-bold text-sap-text">{kpi.value}</div>
-            <div className="text-xs text-gray-500 font-medium">{kpi.label}</div>
+            <div className="text-3xl font-bold text-sap-text mb-1">{kpi.value}</div>
+            <div className="text-xs text-gray-500 font-bold uppercase tracking-widest">{kpi.label}</div>
           </div>
         ))}
       </div>
@@ -159,19 +163,19 @@ export function Analytics() {
         </div>
 
         {/* Recent Activity / Insights */}
-        <div className="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
-          <h3 className="text-sm font-bold text-sap-text mb-6">Key Insights</h3>
+        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+          <h3 className="text-lg font-bold text-sap-text mb-6">Hackathon Project Insights</h3>
           <div className="space-y-4">
             {[
-              { title: 'Hiring Surge', desc: 'Engineering headcount increased by 15% this quarter.', type: 'positive' },
-              { title: 'Retention Alert', desc: 'Turnover in Sales is slightly higher than company average.', type: 'warning' },
-              { title: 'Training Milestone', desc: '85% of employees completed mandatory compliance training.', type: 'positive' },
-              { title: 'Budget Update', desc: 'Q3 recruitment budget has been approved.', type: 'info' },
+              { title: 'Internal Mobility Peak', desc: 'Internal hiring reached an all-time high of 68% this month.', type: 'positive' },
+              { title: 'Skill Gap Reduction', desc: 'Average skill gap across the organization reduced by 15% through Percipio.', type: 'positive' },
+              { title: 'Peer Recognition Impact', desc: 'Employee engagement scores up by 22% since peer recognition launch.', type: 'positive' },
+              { title: 'AI Matching Accuracy', desc: '92% of AI-recommended roles resulted in successful internal placements.', type: 'info' },
             ].map((insight, i) => (
-              <div key={i} className="flex gap-4 p-3 rounded-sm bg-gray-50 border-l-4 border-sap-blue">
+              <div key={i} className="flex gap-4 p-4 rounded-2xl bg-gray-50 border-l-4 border-sap-blue">
                 <div className="flex-1">
-                  <div className="text-xs font-bold text-sap-text">{insight.title}</div>
-                  <div className="text-xs text-gray-500">{insight.desc}</div>
+                  <div className="text-sm font-bold text-sap-text">{insight.title}</div>
+                  <div className="text-xs text-gray-500 mt-1">{insight.desc}</div>
                 </div>
               </div>
             ))}

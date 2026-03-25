@@ -10,7 +10,10 @@ import {
   ChevronRight,
   TrendingUp,
   Star,
-  Users
+  Users,
+  ExternalLink,
+  Zap,
+  Sparkles
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { MOCK_COURSES } from '../constants';
@@ -72,6 +75,28 @@ export function Learning() {
         ))}
       </div>
 
+      {/* Percipio Integration Banner */}
+      <div className="bg-gradient-to-r from-[#1a1a1a] to-[#333] rounded-3xl p-8 text-white flex items-center justify-between shadow-xl overflow-hidden relative">
+        <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+        <div className="relative z-10 flex items-center gap-8">
+          <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20">
+            <img src="https://www.percipio.com/favicon.ico" className="w-12 h-12 invert" alt="Percipio" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+              Percipio Learning Integration <Sparkles size={20} className="text-amber-400" />
+            </h2>
+            <p className="text-white/70 max-w-lg">Your formal skill development and certification records are automatically synced from Percipio to your SuccessFactors profile.</p>
+          </div>
+        </div>
+        <button 
+          onClick={() => handleAction('Open Percipio')}
+          className="px-8 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2"
+        >
+          Go to Percipio <ExternalLink size={18} />
+        </button>
+      </div>
+
       {/* Filter Tabs */}
       <div className="flex flex-col space-y-8">
         <div className="flex items-center justify-between">
@@ -110,26 +135,47 @@ export function Learning() {
 
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {MOCK_COURSES.concat(MOCK_COURSES).map((course, idx) => (
+          {[
+            { title: 'Cloud Computing Fundamentals', provider: 'Percipio', type: 'Certification', points: 250, color: 'blue' },
+            { title: 'Strategic Management 2026', provider: 'SAP Learning', type: 'Course', points: 500, color: 'purple' },
+            { title: 'Data Science Essentials', provider: 'Percipio', type: 'Certification', points: 300, color: 'green' },
+            { title: 'Leadership in Digital Age', provider: 'Percipio', type: 'Course', points: 150, color: 'orange' },
+          ].map((course, idx) => (
             <div 
               key={idx} 
               onClick={() => handleAction(`Course: ${course.title}`)}
-              className="bg-white rounded-sm shadow-sm border border-gray-100 overflow-hidden flex flex-col group cursor-pointer hover:shadow-md transition-all"
+              className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col group cursor-pointer hover:shadow-md transition-all"
             >
               <div className="relative h-48">
-                <img src={course.thumbnail} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                <div className="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-gray-400">
-                  <Award size={18} />
+                <img src={`https://picsum.photos/seed/${course.title}/400/300`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                <div className="absolute top-4 left-4">
+                  <span className={cn(
+                    "px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white",
+                    course.color === 'blue' ? "bg-blue-500" : 
+                    course.color === 'purple' ? "bg-purple-500" : 
+                    course.color === 'green' ? "bg-green-500" : "bg-orange-500"
+                  )}>
+                    {course.type}
+                  </span>
+                </div>
+                <div className="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-2xl shadow-md flex items-center justify-center text-amber-500">
+                  <Award size={20} />
                 </div>
               </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Leadership Development</p>
-                <h3 className="text-sm font-bold text-sap-text group-hover:text-sap-blue transition-colors mb-1">{course.title}</h3>
-                <p className="text-xs text-gray-500">Empathetic Leader</p>
-                <div className="mt-auto pt-4">
-                  <div className="w-full h-1 bg-gray-100 rounded-full">
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{course.provider}</p>
+                  <div className="flex items-center gap-1 text-amber-600 font-bold text-[10px]">
+                    <Zap size={10} fill="currentColor" />
+                    <span>+{course.points} pts</span>
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-sap-text group-hover:text-sap-blue transition-colors mb-4">{course.title}</h3>
+                <div className="mt-auto pt-4 flex items-center justify-between">
+                  <div className="flex-1 h-1.5 bg-gray-100 rounded-full mr-4">
                     <div className="h-full bg-sap-blue rounded-full" style={{ width: '45%' }} />
                   </div>
+                  <span className="text-[10px] font-bold text-gray-400">45%</span>
                 </div>
               </div>
             </div>

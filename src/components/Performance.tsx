@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'sonner';
-import { Target, TrendingUp, CheckCircle2, Clock, AlertCircle, ChevronRight, Filter, Plus } from 'lucide-react';
+import { Target, TrendingUp, CheckCircle2, Clock, AlertCircle, ChevronRight, Filter, Plus, Heart, MessageSquare, Zap, Star } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { MOCK_GOALS } from '../constants';
 
@@ -14,7 +14,7 @@ export function Performance() {
   const stats = [
     { label: 'Total Goals', value: '8', icon: Target, color: 'text-blue-500', bg: 'bg-blue-50' },
     { label: 'On Track', value: '6', icon: TrendingUp, color: 'text-green-500', bg: 'bg-green-50' },
-    { label: 'At Risk', value: '2', icon: AlertCircle, color: 'text-orange-500', bg: 'bg-orange-50' },
+    { label: 'Recognition Points', value: '1,250', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-50' },
   ];
 
   return (
@@ -63,13 +63,13 @@ export function Performance() {
 
       {/* Tabs */}
       <div className="bg-white rounded-sm shadow-sm border border-gray-100 overflow-hidden">
-        <div className="flex border-b border-gray-100">
-          {['Goals', 'Performance Reviews', 'Continuous Feedback'].map(tab => (
+        <div className="flex border-b border-gray-100 overflow-x-auto no-scrollbar">
+          {['Goals', 'Performance Reviews', 'Peer Recognition', 'Continuous Feedback'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "px-8 py-4 text-sm font-bold transition-all relative",
+                "px-8 py-4 text-sm font-bold transition-all relative whitespace-nowrap",
                 activeTab === tab ? "text-sap-blue" : "text-gray-400 hover:text-gray-600"
               )}
             >
@@ -119,6 +119,41 @@ export function Performance() {
                       )}
                       style={{ width: `${goal.progress}%` }}
                     />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : activeTab === 'Peer Recognition' ? (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-sap-text">Recent Recognition</h3>
+                <button 
+                  onClick={() => handleAction('Send Recognition')}
+                  className="text-sap-blue text-sm font-bold hover:underline flex items-center gap-1"
+                >
+                  <Heart size={16} /> Send Recognition
+                </button>
+              </div>
+              
+              {[
+                { from: 'James Karanja', message: 'Paula did an amazing job leading the M-Pesa integration project. Her strategic vision was key!', date: '2 days ago', points: 100 },
+                { from: 'Mary Mutahi', message: 'Great collaboration on the HR policy update. Very professional and thorough.', date: '1 week ago', points: 50 },
+                { from: 'Confidence Alividza', message: 'Thank you for the mentorship session. It really helped me understand the new architecture.', date: '2 weeks ago', points: 75 },
+              ].map((rec, i) => (
+                <div key={i} className="p-6 rounded-2xl border border-gray-100 bg-gray-50/30 flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-sap-blue font-bold">
+                    {rec.from.charAt(0)}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold text-sap-text">{rec.from}</h4>
+                      <span className="text-[10px] text-gray-400 font-bold uppercase">{rec.date}</span>
+                    </div>
+                    <p className="text-sm text-gray-600 italic mb-3">"{rec.message}"</p>
+                    <div className="flex items-center gap-1 text-amber-600 font-bold text-xs">
+                      <Zap size={12} fill="currentColor" />
+                      <span>+{rec.points} pts</span>
+                    </div>
                   </div>
                 </div>
               ))}
